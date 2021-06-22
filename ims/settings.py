@@ -25,7 +25,7 @@ SECRET_KEY = 'o3qk9z9e=@ifj0-^+9rlhc+#e8$e-zl+l^&()c146nvnyudna)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['foxit-ims.herokuapp.com/','127.0.0.1']
+ALLOWED_HOSTS = ['foxit-ims.herokuapp.com','127.0.0.1']
 
 
 # Application definition
