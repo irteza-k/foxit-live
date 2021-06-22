@@ -1,0 +1,907 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Metas -->
+    <meta charset="utf-8">
+    <title>FoxIT</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Css -->
+    <link href="{% static 'isp-home/css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{% static 'isp-home/css/main.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="{% static 'isp-home/css/bootstrap-dropdownhover.min.css' %}">
+    <link href="{% static 'isp-home/css/flexslider.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{% static 'isp-home/css/magnific-popup.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="{% static 'isp-home/css/custom_table.css'%}">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,400i,600,700" rel="stylesheet">
+    <link href="{% static 'isp-home/css/fonts.css' %}" rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+
+    {% if request.session.userid is None %}
+    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <form action="login_check" method="post">
+                    {% csrf_token %}
+
+
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="email" id="defaultForm-email" class="form-control validate" name="email">
+                            <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+                        </div>
+
+                        <div class="md-form mb-4">
+                            <i class="fas fa-lock prefix grey-text"></i>
+                            <input type="password" id="defaultForm-pass" class="form-control validate" name="password">
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="submit" class="btn btn-default">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <!-- Preloader -->
+    <div class="loader">
+        <!-- Preloader inner -->
+        <div class="loader-inner">
+            <svg width="120" height="220" viewbox="0 0 100 100" class="loading-spinner" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <circle class="spinner" cx="50" cy="50" r="21" fill="#ffffff" stroke-width="6" />
+      </svg>
+        </div>
+        <!-- End preloader inner -->
+    </div>
+    <!-- End preloader-->
+    <!--Wrapper-->
+    <div class="wrapper">
+        <!--Header-->
+        <header class="header default">
+            <div class="header-section">
+                <!--Container-->
+                <div class="container ">
+                    <nav class="navbar navbar-expand-lg header-navbar ">
+                        <a class=" navbar-brand navbar-logo scroll" href="#wrapper">
+                            <img class="mb-0 logo-light" src="{% static 'isp-home/assets/svg/logo-light.svg' %}" alt="">
+                            <img class="mb-0 logo-dark" src="{% static 'isp-home/assets/svg/logo-dark.svg' %}" alt="">
+                        </a>
+                        <button class="navbar-toggler btn-navbar-toggler" type="button" data-toggle="collapse" data-target=".nav-menu" aria-expanded="true" aria-label="Toggle navigation"> <span class="fa fa-bars"></span>
+            </button>
+                        <div class="nav-menu collapse navbar-collapse navbar-collapse justify-content-end py-0 ">
+                            <ul class=" navbar-nav  header-navbar-nav">
+                                <li><a class="nav-link scroll" href="#wrapper">Home</a>
+                                </li>
+                                <li><a class="nav-link scroll" href="#about">About</a>
+                                </li>
+
+                                <li><a class="nav-link scroll" href="#tickets">Packages</a>
+                                </li>
+                                <li class="mb-4 mb-lg-0"><a class="nav-link scroll" href="#faq">Select package</a>
+                                </li>
+                                <li><a class="nav-link scroll" href="#venue">Location</a>
+                                </li>
+
+                                {% if request.session.userid is None %}
+                                <li class="mb-4 mb-lg-0"><a class="nav-link scroll" data-toggle="modal" data-target="#modalLoginForm">Login</a>
+                                </li>
+                                {% else %}
+                                <li><a class="nav-link scroll" href="invoice">Invoice</a>
+                                </li>
+                                <li class="mb-4 mb-lg-0"><a href="logout">Sign out</a>
+                                </li>
+                                {% endif %}
+
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <!--End container-->
+            </div>
+        </header>
+        <!--End header-->
+        <!--Hero section-->
+        <section class="gradient-overlay gradient-overlay-blue ">
+            <img class="bg-image" src="assets/img/1.jpg" alt="">
+            <!--Container-->
+            <div class="container">
+                <!--Row-->
+                <div class="row spacer-lg-bottom spacer-lg-top align-items-center z-index-2 position-relative">
+                    <div class="col-12">
+                        <div class="text-white lead mb-0">29 to 31 July 2019</div>
+                        <h1 class="display-1  text-white mb-4">FoxeIT</h1>
+                        <div class=" text-white mb-0 lead ">We are always Faster & Reliable</div>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+            <!--Container-->
+            <div class="container">
+                <!--Row-->
+                <div class="row z-index-2 position-relative align-items-center">
+                    <div class="col-sm-8 col-md-6 col-lg-4  offset-lg-0 mb-5 mb-lg-0">
+                        <div class="media align-items-center">
+                            <img class="max-width-md mr-3" src="assets/svg/map-icon.svg" alt="">
+                            <div class="media-body">
+                                <h2 class="h5 text-white mb-0">Location</h2>
+                                <p class="text-light mb-0">Inida, Maharashtra</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 text-lg-right"> <a class="scroll btn btn-primary btn-lg mb-5 mb-lg-0" href="#tickets">
+            Polupar Packages
+          </a>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+            <div class="curved-decoration splash">
+                <svg version="1.1" class="bg-white-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 5492.1021 581.185" enable-background="new 0 0 5492.1021 581.185" xml:space="preserve">
+          <path d="M5492.1021,0v581.185H0.0054c-0.0068,0-0.0073-0.01-0.0006-0.0107L5492.1021,0z" />
+        </svg>
+            </div>
+        </section>
+        <!--End hero section-->
+        <!--About section-->
+        <section id="about" class="o-hidden">
+            <!--Container-->
+            <div class="container spacer-double-sm">
+                <!--Row-->
+                <div class="row justify-content-between  position-relative align-items-center z-index-2">
+                    <div class="col-md-6 mb-5 mb-md-0">
+                        <h1 class="mb-4">What We Do ?</h1>
+                        <p class="lead">ASIA IT provides an extensive range of high quality data & internet connectivity services throughout the country. We offer safe internet access services with various service level descriptions for corporate businesses and SMEs.
+                            Our IPTSP services allow the opportunity to generate profitable and recurring monthly revenue for businesses. We also offer hosting & web development solutions for any business with high availability and consistency.</p>
+                        <p class="lead  mb-0">Corporate Internet & Data Connectivity Safe & Smarter Home Internet High Quality & Reliable IPTSP Service Secured Hosting & Web Development</p>
+                    </div>
+                    <div class="col-md-5"> <span class="d-block  text-uppercase span-style mb-5 ">Clients</span>
+                        <ul class="d-flex flex-wrap list-unstyled">
+                            <li class="mr-4 mb-5 ">
+                                <svg version="1.1" class=" icon-logo-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 91.6685 19.1649" enable-background="new 0 0 91.6685 19.1649" xml:space="preserve">
+                  <g>
+                    <path d="M6.9955,5.5138v2.7933H4.858v10.6632H1.4573V8.3071H0V5.5138h1.4573V4.7607c0-1.6189,0.429-2.801,1.2876-3.5464
+      c0.8581-0.7445,2.2104-1.117,4.0565-1.117v2.8662c-0.7128,0-1.2147,0.1376-1.5062,0.4128C5.0037,3.6518,4.858,4.1135,4.858,4.7607
+      v0.7531H6.9955z" />
+                    <path d="M10.3962,17.2455c-1.3116-1.279-1.9674-2.9549-1.9674-5.0277s0.6635-3.7406,1.9918-5.0037
+      c1.3274-1.2631,2.9755-1.8945,4.9428-1.8945s3.615,0.6314,4.9428,1.8945s1.9918,2.9309,1.9918,5.0037s-0.6678,3.7487-2.0038,5.0277
+      c-1.336,1.2799-2.9918,1.9194-4.9673,1.9194C13.3511,19.1649,11.7077,18.5254,10.3962,17.2455z M15.327,16.2743
+      c0.9554,0,1.7771-0.3523,2.4654-1.057c0.6879-0.7038,1.0321-1.6999,1.0321-2.9875c0-1.2871-0.3399-2.279-1.0201-2.9755
+      c-0.6798-0.6961-1.5019-1.0445-2.4654-1.0445c-0.9635,0-1.7771,0.3485-2.441,1.0445c-0.6644,0.6965-0.9957,1.6922-0.9957,2.9875
+      c0,1.2961,0.3313,2.2914,0.9957,2.9875C13.562,15.9262,14.3712,16.2743,15.327,16.2743z" />
+                    <path d="M35.7302,5.5138l-4.3723,6.5823l4.3479,6.8742h-3.8379l-2.5747-4.0565l-2.4774,4.0565h-3.4491l4.3479-6.5583
+      l-4.3479-6.8982h3.8379l2.5747,4.0805l2.4774-4.0805H35.7302z" />
+                    <path d="M43.381,19.1649c-1.9596,0-3.5545-0.6352-4.7851-1.9074c-1.231-1.2704-1.8461-2.9506-1.8461-5.0397
+      s0.6194-3.7607,1.8581-5.0161c1.2391-1.2546,2.8422-1.8821,4.8095-1.8821c1.9674,0,3.5828,0.6112,4.846,1.8336
+      c1.2627,1.2229,1.8945,2.8542,1.8945,4.8944c0,0.4698-0.0326,0.907-0.0973,1.312h-9.8128
+      c0.0806,0.8744,0.4042,1.5782,0.9713,2.1131c0.5666,0.5341,1.2876,0.8015,2.162,0.8015c1.1817,0,2.0561-0.4861,2.6232-1.4573
+      h3.6921c-0.3888,1.279-1.1414,2.324-2.2588,3.1332C46.3201,18.7603,44.9678,19.1649,43.381,19.1649z M45.6278,9.0113
+      c-0.6074-0.5341-1.3403-0.8015-2.1984-0.8015c-0.8585,0-1.5747,0.2675-2.1495,0.8015c-0.5748,0.5345-0.9194,1.2473-1.0321,2.1375
+      h6.3637C46.5631,10.2586,46.2352,9.5458,45.6278,9.0113z" />
+                    <path d="M56.2786,7.6029c0.955-1.522,2.3561-2.2833,4.2022-2.2833c1.8456,0,3.3677,0.6434,4.5661,1.9309
+      c1.1984,1.2871,1.7976,2.9472,1.7976,4.9793c0,2.0325-0.5992,3.6964-1.7976,4.9917c-1.1984,1.2953-2.708,1.9434-4.5297,1.9434
+      c-1.8221,0-3.2348-0.8178-4.2386-2.4534v2.2588h-3.4251V0.9957h3.4251V7.6029z M62.3144,15.1324
+      c0.7047-0.7124,1.0565-1.6836,1.0565-2.9146c0-1.2306-0.3519-2.1941-1.0565-2.8906c-0.7042-0.6961-1.5345-1.0445-2.4899-1.0445
+      c-0.9554,0-1.7852,0.3523-2.4894,1.0565c-0.7047,0.7047-1.0565,1.6725-1.0565,2.9026c0,1.231,0.3519,2.1988,1.0565,2.9026
+      c0.7042,0.7046,1.534,1.057,2.4894,1.057C60.78,16.2014,61.6102,15.8456,62.3144,15.1324z" />
+                    <path d="M73.33,2.0891c0,0.5829-0.2027,1.0767-0.6074,1.4813c-0.405,0.405-0.895,0.6074-1.4697,0.6074
+      c-0.5748,0-1.0647-0.2023-1.4693-0.6074c-0.4051-0.4046-0.6074-0.8984-0.6074-1.4813c0-0.5834,0.2023-1.0771,0.6074-1.4817
+      C70.1882,0.2027,70.6781,0,71.2529,0c0.5748,0,1.0647,0.2027,1.4697,0.6074C73.1272,1.012,73.33,1.5057,73.33,2.0891z
+       M69.5405,18.9703V5.5138h3.4251v13.4565H69.5405z" />
+                    <path d="M85.5718,5.5138v2.7933l-5.6595,7.8455h5.6595v2.8177h-9.6431v-2.8177l5.6835-7.8455h-5.6835V5.5138H85.5718z" />
+                    <path d="M91.6685,17.0269c0,0.5512-0.1903,1.0124-0.5709,1.3844c-0.3806,0.3729-0.8418,0.5589-1.3844,0.5589
+      s-1.0004-0.186-1.3724-0.5589c-0.3729-0.372-0.5589-0.8332-0.5589-1.3844c0-0.5503,0.186-1.0115,0.5589-1.3844
+      c0.372-0.372,0.8298-0.5589,1.3724-0.5589s1.0038,0.1869,1.3844,0.5589C91.4781,16.0154,91.6685,16.4766,91.6685,17.0269z" />
+                  </g>
+                </svg>
+                            </li>
+                            <li class="mr-4 mb-5 ">
+                                <svg version="1.1" class=" icon-logo-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 102.1 44.5" enable-background=" 0 0 102.1 44.5;" xml:space="preserve">
+                  <g>
+                    <path fill="#a7b3bd" stroke="#a7b3bd" stroke-width="2" stroke-miterlimit="10" d="M20.1,6.1c0,0.4-0.1,0.6-0.5,0.6c-0.4,0-0.7-0.2-0.8-0.6c-0.4-1.2-0.9-2-1.6-2.4c-0.7-0.5-1.7-0.7-3-0.7H8.9
+      c-0.5,0-1,0.2-1.3,0.5S7.2,4.2,7.2,4.7v7.9c0,0.3,0.2,0.5,0.5,0.5H14c0.3,0,0.6-0.1,0.8-0.2c0.2-0.2,0.3-0.3,0.4-0.5
+      c0.1-0.2,0.1-0.4,0.3-0.8l0.1-0.5c0.1-0.3,0.2-0.4,0.5-0.4c0.3,0,0.5,0.2,0.5,0.5l-0.1,3.1l0.1,3c0,0.3-0.1,0.5-0.4,0.5
+      c-0.3,0-0.5-0.1-0.5-0.4l-0.1-0.6c-0.1-0.6-0.2-1.1-0.5-1.4c-0.2-0.3-0.5-0.5-1-0.5H7.6c-0.3,0-0.4,0.2-0.4,0.5v8.9
+      c0,0.9,0.5,1.4,1.6,1.5l1.1,0.1c0.3,0,0.4,0.1,0.4,0.4c0,0.4-0.2,0.5-0.5,0.5l-4.1-0.1l-4.1,0.1c-0.3,0-0.5-0.2-0.5-0.5
+      s0.1-0.5,0.4-0.5l1-0.1c0.5,0,0.9-0.2,1.2-0.4c0.3-0.3,0.5-0.6,0.5-1V3.8c0-0.9-0.6-1.3-1.7-1.4l-1-0.1C1.1,2.2,1,2.1,1,1.7
+      c0-0.3,0.2-0.5,0.5-0.5l4.1,0.1H18c0.5,0,0.8,0.1,1.1,0.4c0.3,0.3,0.5,0.6,0.5,1L20.1,6.1z" />
+                    <path fill="#a7b3bd" stroke="#a7b3bd" stroke-width="2" stroke-miterlimit="10" d="M36.8,1c3.8,0,6.8,1.2,9.1,3.6c2.3,2.4,3.4,5.5,3.4,9.3s-1.2,6.9-3.5,9.4S40.4,27,36.7,27
+      c-3.7,0-6.8-1.2-9.1-3.7c-2.3-2.4-3.5-5.5-3.5-9.3c0-3.8,1.2-6.9,3.5-9.3C29.9,2.2,33,1,36.8,1z M43.8,6.7
+      c-0.7-1.2-1.7-2.2-2.9-2.9c-1.2-0.7-2.7-1.1-4.3-1.1c-2.9,0-5.2,0.9-6.8,2.7c-1.6,1.8-2.4,4.2-2.4,7.3c0,3.2,0.7,6,2.2,8.6
+      c0.7,1.2,1.7,2.2,2.9,3c1.2,0.8,2.7,1.1,4.3,1.1c2.9,0,5.1-0.9,6.7-2.8s2.4-4.4,2.4-7.6S45.2,9,43.8,6.7z" />
+                    <path fill="#a7b3bd" stroke="#a7b3bd" stroke-width="2" stroke-miterlimit="10" d="M58.8,25.7c0.3,0,0.4,0.2,0.4,0.5c0,0.3-0.2,0.5-0.5,0.5L56,26.6l-3.8,0.1c-0.3,0-0.5-0.1-0.5-0.4
+      s0.1-0.5,0.4-0.5l1.1-0.1c0.7-0.1,1.4-0.6,2.1-1.4l6.9-9.9L55.2,3.8c-0.6-0.9-1.3-1.4-2.1-1.4l-1-0.1c-0.3,0-0.4-0.2-0.4-0.5
+      s0.2-0.4,0.5-0.4l3.3,0.1l3.7-0.1c0.4,0,0.5,0.2,0.5,0.5s-0.1,0.5-0.4,0.5l-0.6,0.1c-0.4,0-0.7,0.2-0.8,0.5
+      c-0.1,0.3-0.1,0.6,0.1,0.9l6,7.9l5.5-7.9c0.2-0.3,0.3-0.6,0.1-0.9c-0.1-0.3-0.4-0.5-0.9-0.5L68,2.3c-0.3,0-0.4-0.2-0.4-0.5
+      s0.2-0.5,0.5-0.5l2.7,0.1l3.8-0.1c0.3,0,0.5,0.1,0.5,0.4S75,2.2,74.7,2.2l-1.1,0.1c-0.7,0.1-1.4,0.6-2.1,1.4L65,13.2l7.2,11
+      c0.6,0.9,1.3,1.4,2.1,1.4l1,0.1c0.3,0,0.4,0.2,0.4,0.5s-0.2,0.4-0.5,0.4l-4.2-0.1l-3.7,0.1c-0.4,0-0.5-0.2-0.5-0.5
+      c0-0.3,0.1-0.5,0.4-0.5l0.7-0.1c0.4,0,0.7-0.2,0.8-0.5c0.1-0.3,0.1-0.6-0.1-0.9l-5.5-8.4l-6.7,8.4c-0.2,0.3,0.6,0.6,0.8,0.9
+      c0.1,0.3,0.4,0.5,0.9,0.5L58.8,25.7z" />
+                    <path fill="#a7b3bd" stroke="#a7b3bd" stroke-width="2" stroke-miterlimit="10" d="M98.9,26.6H85.4l-4.1,0.1c-0.3,0-0.5-0.2-0.5-0.5s0.1-0.5,0.4-0.5l1-0.1c0.5,0,0.9-0.2,1.2-0.4
+      c0.3-0.3,0.5-0.6,0.5-1V3.8c0-0.9-0.6-1.3-1.7-1.4l-1-0.1c-0.3,0-0.4-0.2-0.4-0.5c0-0.3,0.2-0.5,0.5-0.5l4.1,0.1h12.8
+      c0.5,0,0.8,0.1,1.1,0.4c0.3,0.3,0.5,0.6,0.5,1l0.5,3.3c0,0.4-0.1,0.6-0.5,0.6c-0.4,0-0.7-0.2-0.8-0.6c-0.4-1.2-0.9-2-1.6-2.4
+      c-0.7-0.5-1.7-0.7-3-0.7h-5.7c-0.5,0-1,0.2-1.3,0.5c-0.3,0.3-0.5,0.7-0.5,1.2v7.6c0,0.3,0.2,0.5,0.5,0.5h6.7c0.3,0,0.6-0.1,0.8-0.3
+      c0.2-0.2,0.3-0.3,0.4-0.5c0.1-0.1,0.1-0.4,0.3-0.8l0.1-0.5c0.1-0.3,0.3-0.4,0.5-0.4c0.3,0,0.4,0.2,0.4,0.5l-0.1,3.1l0.1,2.9
+      c0,0.3-0.2,0.5-0.5,0.5c-0.3,0-0.5-0.1-0.5-0.4l-0.1-0.6c-0.2-1.2-0.7-1.9-1.5-1.9h-6.7c-0.3,0-0.4,0.2-0.4,0.5v8.4
+      c0,0.5,0.2,0.9,0.5,1.2c0.3,0.3,0.8,0.5,1.3,0.5h5.9c1.2,0,2.3-0.3,3.2-0.9c0.9-0.6,1.5-1.5,1.9-2.7c0.1-0.4,0.3-0.6,0.6-0.6
+      c0.3,0,0.5,0.1,0.6,0.2c0.1,0.1,0.2,0.3,0.1,0.5l-0.6,3.7c0,0.4-0.2,0.8-0.5,1C99.7,26.5,99.3,26.6,98.9,26.6z" />
+                  </g>
+                  <g>
+                    <path class="st1" d="M9.3,44.2H7.9c-0.3,0-0.5-0.1-0.6-0.3l-3-4.1c-0.1-0.1-0.2-0.2-0.3-0.3c-0.1-0.1-0.3-0.1-0.5-0.1H2.3v4.8H0.8
+      V32.8H4c0.7,0,1.4,0.1,1.9,0.2s1,0.4,1.3,0.6c0.3,0.3,0.6,0.6,0.8,1c0.2,0.4,0.2,0.8,0.2,1.3c0,0.4-0.1,0.8-0.2,1.1
+      c-0.1,0.4-0.3,0.7-0.6,0.9s-0.5,0.5-0.9,0.7c-0.3,0.2-0.7,0.3-1.2,0.4c0.2,0.1,0.4,0.3,0.5,0.5L9.3,44.2z M4,38.3
+      c0.4,0,0.8-0.1,1.2-0.2C5.5,38,5.8,37.9,6,37.7s0.4-0.4,0.5-0.7s0.2-0.6,0.2-0.9c0-0.7-0.2-1.2-0.7-1.5C5.6,34.2,4.9,34,4,34H2.3
+      v4.3H4z" />
+                    <path fill="#a7b3bd" stroke="#a7b3bd" stroke-width="0.25" stroke-miterlimit="10" d="M31,43l0,1.3H24V32.8H31V34h-5.5v3.8H30V39h-4.5V43C25.5,43,31,43,31,43z" />
+                    <path fill="#a7b3bd" stroke="#a7b3bd" stroke-width="0.25" stroke-miterlimit="10" d="M52.2,34.6c0,0.1-0.1,0.1-0.2,0.2s-0.1,0.1-0.2,0.1c-0.1,0-0.2,0-0.3-0.1c-0.1-0.1-0.3-0.2-0.5-0.3
+      c-0.2-0.1-0.4-0.2-0.7-0.3c-0.3-0.1-0.6-0.1-0.9-0.1c-0.3,0-0.7,0-0.9,0.1c-0.3,0.1-0.5,0.2-0.7,0.4s-0.3,0.3-0.4,0.6
+      s-0.1,0.4-0.1,0.7c0,0.3,0.1,0.6,0.2,0.8c0.2,0.2,0.4,0.4,0.6,0.5s0.6,0.3,0.9,0.4s0.7,0.2,1,0.3s0.7,0.2,1,0.4
+      c0.3,0.1,0.6,0.3,0.9,0.6s0.5,0.5,0.6,0.8s0.2,0.7,0.2,1.2c0,0.5-0.1,1-0.3,1.4c-0.2,0.4-0.4,0.8-0.7,1.1s-0.7,0.6-1.2,0.8
+      s-1,0.3-1.6,0.3c-0.7,0-1.4-0.1-2-0.4c-0.6-0.3-1.1-0.6-1.6-1.1l0.4-0.7c0-0.1,0.1-0.1,0.2-0.1s0.1-0.1,0.2-0.1
+      c0.1,0,0.1,0,0.2,0.1c0.1,0.1,0.2,0.1,0.3,0.2c0.1,0.1,0.2,0.2,0.4,0.3c0.1,0.1,0.3,0.2,0.5,0.3s0.4,0.2,0.6,0.2s0.5,0.1,0.8,0.1
+      c0.4,0,0.7-0.1,1-0.2c0.3-0.1,0.5-0.2,0.7-0.4c0.2-0.2,0.4-0.4,0.5-0.7c0.1-0.3,0.2-0.5,0.2-0.9c0-0.3-0.1-0.6-0.2-0.9
+      c-0.2-0.2-0.4-0.4-0.6-0.6c-0.3-0.1-0.5-0.3-0.9-0.4c-0.3-0.1-0.7-0.2-1-0.3c-0.3-0.1-0.7-0.2-1-0.4c-0.3-0.1-0.6-0.3-0.9-0.6
+      s-0.5-0.5-0.6-0.9s-0.2-0.8-0.2-1.3c0-0.4,0.1-0.8,0.2-1.2c0.2-0.4,0.4-0.7,0.7-1c0.3-0.3,0.7-0.5,1.1-0.7c0.4-0.2,0.9-0.3,1.5-0.3
+      c0.6,0,1.2,0.1,1.7,0.3c0.5,0.2,1,0.5,1.4,0.9L52.2,34.6z" />
+                    <path fill="#a7b3bd" stroke="#a7b3bd" stroke-width="0.25" stroke-miterlimit="10" d="M75.9,34.1h-3.7v10.2h-1.5V34.1H67v-1.3h9V34.1z" />
+                    <path fill="#a7b3bd" stroke="#a7b3bd" stroke-width="0.25" stroke-miterlimit="10" d="M100.9,38.5c0,0.9-0.1,1.6-0.4,2.4c-0.3,0.7-0.7,1.3-1.2,1.9s-1.1,0.9-1.8,1.2s-1.5,0.4-2.3,0.4
+      c-0.8,0-1.6-0.1-2.3-0.4s-1.3-0.7-1.8-1.2c-0.5-0.5-0.9-1.1-1.2-1.9c-0.3-0.7-0.4-1.5-0.4-2.4c0-0.9,0.1-1.6,0.4-2.4
+      c0.3-0.7,0.7-1.3,1.2-1.9c0.5-0.5,1.1-0.9,1.8-1.2s1.5-0.4,2.3-0.4c0.8,0,1.6,0.1,2.3,0.4s1.3,0.7,1.8,1.2c0.5,0.5,0.9,1.1,1.2,1.9
+      C100.7,36.8,100.9,37.6,100.9,38.5z M99.3,38.5c0-0.7-0.1-1.3-0.3-1.9c-0.2-0.6-0.5-1-0.8-1.4c-0.4-0.4-0.8-0.7-1.3-0.9
+      S95.8,34,95.2,34c-0.6,0-1.2,0.1-1.7,0.3c-0.5,0.2-0.9,0.5-1.3,0.9c-0.4,0.4-0.6,0.9-0.8,1.4s-0.3,1.2-0.3,1.9
+      c0,0.7,0.1,1.3,0.3,1.9s0.5,1,0.8,1.4c0.4,0.4,0.8,0.7,1.3,0.9c0.5,0.2,1.1,0.3,1.7,0.3c0.6,0,1.2-0.1,1.7-0.3
+      c0.5-0.2,0.9-0.5,1.3-0.9c0.4-0.4,0.6-0.9,0.8-1.4C99.2,39.8,99.3,39.2,99.3,38.5z" />
+                  </g>
+                </svg>
+                            </li>
+                            <li class="mr-4 mb-5 ">
+                                <svg version="1.1" class=" icon-logo-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 99.244 15.5394" enable-background="new 0 0 99.244 15.5394" xml:space="preserve">
+                  <g>
+                    <path fill="#FFFFFF" d="M97.823,12.6509L97.823,12.6509c-0.7848,0-1.421-0.6362-1.421-1.421v-0.6502
+      c0-0.7848,0.6362-1.421,1.421-1.421l0,0c0.7848,0,1.421,0.6362,1.421,1.421v0.6502C99.244,12.0147,98.6078,12.6509,97.823,12.6509z
+      " />
+                    <g>
+                      <path fill="#a7b3bd" d="M1.421,10.2103L1.421,10.2103C0.6362,10.2103,0,9.5741,0,8.7893l0-2.0391
+         c0-0.7848,0.6362-1.421,1.421-1.421h0c0.7848,0,1.421,0.6362,1.421,1.421v2.0391C2.8421,9.5741,2.2059,10.2103,1.421,10.2103z" />
+                      <path fill="#a7b3bd" d="M6.302,12.3418L6.302,12.3418c-0.7848,0-1.421-0.6362-1.421-1.421v-6.302
+         c0-0.7848,0.6362-1.421,1.421-1.421h0c0.7848,0,1.421,0.6362,1.421,1.421v6.302C7.723,11.7055,7.0868,12.3418,6.302,12.3418z" />
+                      <path fill="#a7b3bd" d="M11.2447,15.5394L11.2447,15.5394c-0.7848,0-1.421-0.6362-1.421-1.421V1.421
+         c0-0.7848,0.6362-1.421,1.421-1.421h0c0.7848,0,1.421,0.6362,1.421,1.421v12.6974
+         C12.6658,14.9032,12.0296,15.5394,11.2447,15.5394z" />
+                      <path fill="#a7b3bd" d="M16.1875,14.9646L16.1875,14.9646c-0.7848,0-1.421-0.6362-1.421-1.421V1.9959
+         c0-0.7848,0.6362-1.421,1.421-1.421h0c0.7848,0,1.421,0.6362,1.421,1.421v11.5476
+         C17.6085,14.3284,16.9723,14.9646,16.1875,14.9646z" />
+                    </g>
+                    <g>
+                      <g>
+                        <path fill="#a7b3bd" d="M25.3926,4.9827c-0.5986,0-0.9929,0.2179-0.9929,0.653c0,1.5779,5.0191,0.6802,5.0191,4.1078
+            c0,1.945-1.7138,2.9378-3.8359,2.9378c-1.2927,0-2.6301-0.386-3.6991-1.0339c-0.4086-0.2477-0.5544-0.7711-0.342-1.1991
+            l0.1336-0.2691c0.2395-0.4824,0.8379-0.6566,1.3006-0.3808c0.875,0.5216,1.8915,0.8564,2.6341,0.8564
+            c0.7345,0,1.1971-0.2723,1.1971-0.7753c0-1.6186-5.0191-0.6394-5.0191-4.0126c0-1.7818,1.5099-2.9107,3.8084-2.9107
+            c1.0508,0,2.1093,0.2447,2.9917,0.6368c0.4669,0.2075,0.6585,0.7706,0.4389,1.232l-0.1558,0.3274
+            c-0.2156,0.453-0.7524,0.649-1.2107,0.4449C26.843,5.2329,25.9815,4.9827,25.3926,4.9827z" />
+                      </g>
+                      <g>
+                        <path fill="#a7b3bd" d="M38.7559,8.9137c0,2.2713-1.6051,3.7676-4.0262,3.7676c-2.4212,0-4.0126-1.4963-4.0126-3.7676
+            c0-2.258,1.5915-3.7543,4.0126-3.7543C37.1508,5.1595,38.7559,6.6557,38.7559,8.9137z M33.1518,8.9545
+            c0,1.0881,0.6394,1.8226,1.5779,1.8226c0.9521,0,1.5915-0.7345,1.5915-1.8226c0-1.1017-0.6394-1.8362-1.5915-1.8362
+            C33.7912,7.1183,33.1518,7.8529,33.1518,8.9545z" />
+                      </g>
+                      <g>
+                        <path fill="#a7b3bd" d="M47.592,5.5563v6.7285c0,0.1739-0.141,0.3149-0.3149,0.3149h-1.791c-0.1739,0-0.3149-0.141-0.3149-0.3149
+            v0c0-0.2733-0.3218-0.4136-0.5251-0.2311c-0.4756,0.427-1.0913,0.6452-1.8281,0.6548c-1.5915,0-2.6251-1.1017-2.6251-2.8155
+            V5.5563c0-0.1739,0.141-0.3149,0.3149-0.3149h1.7913c0.1739,0,0.3149,0.141,0.3149,0.3149v3.643
+            c0,0.8297,0.4623,1.3331,1.1832,1.3331c0.8569-0.0136,1.3739-0.6938,1.3739-1.6594V5.5563c0-0.1739,0.141-0.3149,0.3149-0.3149
+            h1.791C47.451,5.2414,47.592,5.3824,47.592,5.5563z" />
+                      </g>
+                      <g>
+                        <path fill="#a7b3bd" d="M56.7033,7.9617v4.3163c0,0.1777-0.1441,0.3218-0.3218,0.3218h-1.764
+            c-0.1777,0-0.3218-0.1441-0.3218-0.3218V8.6551c0-0.8294-0.4898-1.3464-1.2512-1.3464
+            c-0.8161,0.0136-1.3467,0.5714-1.4419,1.4011v3.5682c0,0.1777-0.1441,0.3218-0.3218,0.3218h-1.7776
+            c-0.1777,0-0.3218-0.1441-0.3218-0.3218V5.5631c0-0.1777,0.1441-0.3218,0.3218-0.3218h1.7776
+            c0.1777,0,0.3218,0.1441,0.3218,0.3218v0c0,0.2761,0.3234,0.422,0.5315,0.2405c0.4954-0.432,1.1412-0.6578,1.9033-0.6578
+            C55.6421,5.1459,56.7033,6.2342,56.7033,7.9617z" />
+                      </g>
+                      <g>
+                        <path fill="#a7b3bd" d="M66.3505,4.0415v7.6061c0,0.5258-0.4263,0.9521-0.9521,0.9521h-0.517
+            c-0.5258,0-0.9521-0.4263-0.9521-0.9521v0c-0.5034,0.6802-1.2515,1.0473-2.1764,1.0473c-2.0673,0-3.4276-1.5235-3.4276-3.8084
+            c0-2.2444,1.3467-3.7271,3.3733-3.7271c0.9521,0,1.7138,0.381,2.2308,1.0476V4.0415c0-0.6686,0.542-1.2106,1.2106-1.2106h0
+            C65.8085,2.8309,66.3505,3.3729,66.3505,4.0415z M63.9293,8.9545c0-1.1017-0.6394-1.8362-1.5779-1.8362
+            c-0.9521,0-1.5915,0.7481-1.5915,1.8362s0.6394,1.8362,1.5915,1.8362C63.29,10.7907,63.9293,10.0426,63.9293,8.9545z" />
+                      </g>
+                      <g>
+                        <path fill="#a7b3bd" d="M76.0844,5.4725c0,0.5695-0.2103,1.0764-0.5796,1.4564c-0.3183,0.3275-0.3002,0.8383,0.0519,1.1291
+            c0.5357,0.4426,0.8407,1.1078,0.8407,1.8894c0,1.6322-1.4283,2.6523-3.6727,2.6523h-3.9602
+            c-0.4119,0-0.7459-0.3339-0.7459-0.7459V3.8108c0-0.4119,0.3339-0.7459,0.7459-0.7459h3.7834
+            C74.7108,3.0649,76.0844,4.0034,76.0844,5.4725z M73.5272,5.9076c0-0.5711-0.4351-0.8977-1.1152-0.8977h-1.1719
+            c-0.4119,0-0.7459,0.3339-0.7459,0.7459v0.358c0,0.4119,0.3339,0.7459,0.7459,0.7459h1.1719
+            C73.0921,6.8597,73.5272,6.5062,73.5272,5.9076z M73.8267,9.6347c0-0.5986-0.5442-0.9796-1.4147-0.9796h-1.1719
+            c-0.4119,0-0.7459,0.3339-0.7459,0.7459v0.5215c0,0.4119,0.3339,0.7459,0.7459,0.7459h1.1719
+            C73.2825,10.6684,73.8267,10.2873,73.8267,9.6347z" />
+                      </g>
+                      <g>
+                        <path fill="#a7b3bd" d="M84.872,9.5667h-3.7871c-0.4334,0-0.6777,0.5315-0.3684,0.835c0.3039,0.2982,0.7153,0.457,1.2013,0.457
+            c0.4903,0,0.9722-0.1586,1.3933-0.4628c0.2041-0.1475,0.4812-0.1382,0.6593,0.0399l0.5825,0.5824
+            c0.2024,0.2024,0.1994,0.5406-0.0194,0.7251c-0.7225,0.6091-1.6861,0.938-2.8332,0.938c-2.4076,0-3.8903-1.4827-3.8903-3.7268
+            c0-2.2852,1.5371-3.7951,3.8359-3.7951c2.4059,0,3.7037,1.5129,3.7265,3.9035C85.3751,9.3398,85.1488,9.5667,84.872,9.5667z
+             M82.4103,8.2744c0.3714,0,0.6157-0.3937,0.4469-0.7245c-0.2191-0.4294-0.6462-0.6902-1.1976-0.6902
+            c-0.5072,0-0.9021,0.2362-1.1627,0.629c-0.2229,0.3359,0.007,0.7857,0.4101,0.7857H82.4103z" />
+                      </g>
+                      <g>
+                        <path fill="#a7b3bd" d="M94.7015,7.9617v4.3163c0,0.1777-0.1441,0.3218-0.3218,0.3218h-1.764
+            c-0.1777,0-0.3218-0.1441-0.3218-0.3218V8.6551c0-0.8294-0.4898-1.3464-1.2512-1.3464
+            c-0.8161,0.0136-1.3467,0.5714-1.4419,1.4011v3.5682c0,0.1777-0.1441,0.3218-0.3218,0.3218h-1.7776
+            c-0.1777,0-0.3218-0.1441-0.3218-0.3218V5.5631c0-0.1777,0.1441-0.3218,0.3218-0.3218h1.7776
+            c0.1777,0,0.3218,0.1441,0.3218,0.3218v0c0,0.2761,0.3234,0.422,0.5315,0.2405c0.4954-0.432,1.1412-0.6578,1.9033-0.6578
+            C93.6403,5.1459,94.7015,6.2342,94.7015,7.9617z" />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                            </li>
+                            <li class="mr-4 mb-5 ">
+                                <svg version="1.1" class=" icon-logo-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 145.9316 32.8701" enable-background="new 0 0 145.9316 32.8701" xml:space="preserve">
+                  <g>
+                    <path d="M24.8613,22.5029H8.1069c0.5405,3.1934,2.3584,4.4707,5.1592,4.4707c2.4565,0,3.9795-0.9824,4.52-2.7012l6.7808,2.1611
+      c-1.4248,4.2744-5.6016,6.4365-11.3008,6.4365C4.6675,32.8701,0,28.2021,0,20.0957C0,11.9888,4.6187,7.3208,12.8237,7.3208
+      c8.0088,0,12.2832,4.668,12.2832,12.4307C25.1069,20.5869,25.0088,21.8643,24.8613,22.5029z M8.0581,17.9829h9.2368
+      c-0.3931-3.1445-1.916-4.8149-4.52-4.8149C10.1216,13.168,8.5493,14.6909,8.0581,17.9829z" />
+                    <path d="M51.1489,7.8125l-8.8438,24.5664h-9.9741L23.4868,7.8125h8.7949l5.061,19.2598l5.1587-19.2598H51.1489z" />
+                    <path d="M74.7832,22.5029H58.0288c0.5405,3.1934,2.3584,4.4707,5.1592,4.4707c2.4565,0,3.9795-0.9824,4.52-2.7012l6.7808,2.1611
+      c-1.4248,4.2744-5.6016,6.4365-11.3008,6.4365c-8.5986,0-13.2661-4.668-13.2661-12.7744c0-8.1069,4.6187-12.7749,12.8237-12.7749
+      c8.0088,0,12.2832,4.668,12.2832,12.4307C75.0288,20.5869,74.9307,21.8643,74.7832,22.5029z M57.98,17.9829h9.2368
+      c-0.3931-3.1445-1.916-4.8149-4.52-4.8149C60.0435,13.168,58.4712,14.6909,57.98,17.9829z" />
+                    <path d="M101.8564,16.0176v16.3613h-8.3525V18.3267c0-3.4883-1.4248-4.6187-3.4883-4.6187c-2.4077,0-4.4224,1.6216-4.4224,5.6997
+      v12.9712h-8.3525V7.8125h7.4683l0.2456,4.7168c1.5723-3.4888,4.5693-5.2085,8.4019-5.2085
+      C98.4175,7.3208,101.8564,10.3179,101.8564,16.0176z" />
+                    <path d="M122.9365,31.0029c-1.6216,1.1299-4.373,1.8672-6.9277,1.8672c-5.5522,0-8.9917-2.1621-9.0405-7.8613V13.7573h-4.2256
+      V7.8125h4.2256V2.3096L115.3208,0v7.8125h7.3701v5.9448h-7.3701v9.8765c0,2.3574,1.1792,3.291,3.2427,3.291
+      c1.5234,0,2.5552-0.3926,3.5376-1.0801L122.9365,31.0029z" />
+                    <path d="M122.2002,28.5459l4.3237-4.7168c1.4741,2.457,4.127,3.4893,7.2715,3.4893c2.3096,0,3.6851-0.6885,3.6851-1.7197
+      c0-0.9336-1.1792-1.5234-4.4712-2.2109c-7.4678-1.4746-10.1704-3.8818-10.1704-7.9106s3.8325-8.1562,11.8413-8.1562
+      c5.896,0,9.1387,1.7197,11.2515,4.6187l-4.5205,4.4219c-1.3755-2.4565-3.5376-3.4883-6.4854-3.4883
+      c-2.4565,0-3.7344,0.8843-3.7344,1.8672c0,0.9824,1.0811,1.6211,4.5205,2.2598c7.2715,1.2778,10.1704,3.5869,10.1704,7.8125
+      c0,4.5205-3.7832,8.0576-11.6934,8.0576C128.7842,32.8701,124.7061,31.5928,122.2002,28.5459z" />
+                  </g>
+                </svg>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--Row-->
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 col-md-6 col-sm-8">
+                        <div class=" mb-2 pb-5 mt-5 pt-5 mx-auto">
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+                <!--End row-->
+                <!--Row-->
+                <div class="row justify-content-center">
+                    <div class="col-md-7">
+                        <div class="text-center ">
+
+                            <ul class="list-inline mr-2">
+                                <li class="list-inline-item mr-0">
+                                    <img class="img-fluid avatar-sm avatar-sm-bordered rounded-circle" src="assets/img/p2.jpg" alt="">
+                                </li>
+                                <li class="list-inline-item ml-offset-3 mr-0">
+                                    <img class="img-fluid avatar-sm avatar-sm-bordered rounded-circle" src="assets/img/p1.jpg" alt="">
+                                </li>
+                                <li class="list-inline-item ml-offset-3 mr-0">
+                                    <img class="img-fluid avatar-sm avatar-sm-bordered rounded-circle" src="assets/img/p4.jpg" alt="">
+                                </li>
+                                <li class="list-inline-item ml-offset-3 mr-0">
+                                    <img class="img-fluid avatar-sm avatar-sm-bordered rounded-circle" src="assets/img/p3.jpg" alt="">
+                                </li>
+                            </ul>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+            <div class="svg-decoration-container">
+                <div class="svg-decoration middle-left " data-jarallax-element="0 20">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 595.5502 940.8977" enable-background="new 0 0 595.5502 940.8977" xml:space="preserve">
+            <path fill="#43c370"   d="M373.7599,14.944C289.25-19.552,191.88,6.531,144.11,84.32
+   C78.6499,190.932,0,345.204,0,471.004c0,70.759,20.99,148.159,49.1899,220.205c69.87,178.526,262.7,263.046,453.814,247.976l0,0
+   c82.354-6.49,119.774-119.26,70.407-185.499c-61.899-83.05-110.851-186.085-79.618-282.682c2.777-8.589,5.69-17.008,8.724-25.258
+   C557.3939,296.542,520.952,75.021,373.7599,14.944L373.7599,14.944z" />
+          </svg>
+                </div>
+                <div class="svg-decoration bottom-right " data-jarallax-element="0 -50">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1444.184 1029.8875" enable-background="new 0 0 1444.184 1029.8875" xml:space="preserve">
+            <path fill="#234dd4" d="M1419.1539,768.5245c-36.38,185.74-219.6129,303.7499-400.1959,247.08
+   c-160.16-50.26-349.103-118.27-497.925-197.4c-282.0127-149.95-473.504-497.559-516.634-581.413
+   c-5.963-11.593-5.794-25.256,0.083-36.893l0,0c127.433-252.327,523.503-234.246,781.387-118.473
+   c38.989,17.504,80.126,30.704,123.295,38.149l0,0c253.097,43.652,579.3799,294.627,530.02,546.67L1419.1539,768.5245z" />
+          </svg>
+                </div>
+            </div>
+            <div class="curved-decoration ">
+                <svg version="1.1" class="bg-secondary-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2560 221" enable-background="new 0 0 2560 221" xml:space="preserve">
+          <polygon points="2560,221 0,221 2560,0 "></polygon>
+        </svg>
+            </div>
+        </section>
+        <!--End about section-->
+
+        <!--Video cover section-->
+        <section class=" jarallax gradient-overlay gradient-overlay-dark">
+            <div class="curved-decoration  img-decoration img-decoration-top ">
+                <svg version="1.1" class="bg-secondary-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2560 221" enable-background="new 0 0 2560 221" xml:space="preserve">
+          <polygon points="0,0 2560,0 0,221 " />
+        </svg>
+            </div>
+            <img class="jarallax-img" src="assets/img/1.jpg" alt="">
+            <!--Container-->
+            <div class="container spacer-double-lg z-index-2 position-relative">
+                <h3 class="d-none">Video cover section</h3>
+                <!--Row-->
+                <div class="row justify-content-center text-center">
+                    <div class="col-md-8 col-lg-6 ">
+                        <a class="play-but text-center mt-3 popup-youtube" href="https://www.youtube.com/watch?v=Gc2en3nHxA4"> <span class="play-icon play-icon-md">
+                     <span class="play-icon-inner">
+                        <svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   viewBox="0 0 142.7828 161.2558" enable-background="new 0 0 142.7828 161.2558" xml:space="preserve">
+<g>
+  <path d="M0.0173,80.1791C0.0176,56.5765-0.0355,32.9736,0.0429,9.3712c0.0329-9.9065,3.0932-11.661,11.832-6.6662
+    c41.4524,23.6929,82.8727,47.4424,124.2598,71.2493c8.8638,5.0987,8.8551,8.208,0.0293,13.2873
+    c-41.127,23.669-82.2835,47.2866-123.4601,70.8691c-9.8028,5.6142-12.6491,3.9899-12.672-7.1236
+    C-0.0169,127.3846,0.0169,103.7818,0.0173,80.1791z"/>
+</g>
+</svg>
+                     </span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+            <div class="curved-decoration  img-decoration img-decoration-bottom ">
+                <svg version="1.1" class="bg-white-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2560 221" enable-background="new 0 0 2560 221" xml:space="preserve">
+          <polygon points="2560,221 0,221 2560,0 "></polygon>
+        </svg>
+            </div>
+        </section>
+        <!--End video cover section-->
+        <!--Speakers section-->
+
+        <!--End speakers section-->
+        <!--Schedule section-->
+
+        <!--End schedule section-->
+        <!--Countdown section-->
+        <section id="countdown" class=" bg-primary-2 ">
+            <!--Container-->
+            <div class="container spacer-double-sm position-relative z-index-3">
+                <!--Row-->
+                <div class="row justify-content-between  position-relative align-items-center">
+                    <div class="col">
+                        <div class="mb-5 pb-5 text-center"> <span class="icon-title icon-bg-light rounded-circle  mb-3">
+              <img class="icon-title-inner" src="{% static 'isp-home/assets/svg/time-icon.svg'%}" alt="">
+            </span>
+                            <h2 class="text-white h1">Time left until the conference start </h2>
+                            <p class="w-md-60 mx-auto text-white mb-0 lead">29 to 31 July 2019 with over 80 sessions - Cincinnati, Ohio</p>
+                        </div>
+                    </div>
+                </div>
+                <!--End row-->
+                <!--Row-->
+                <div class="row justify-content-center">
+                    <div class="col-xl-8 col-lg-9 col-md-10">
+                        <div class="countdown text-center card card-body bg-white-20 border-0 flex-row flex-wrap justify-content-around "></div>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <div class="curved-decoration z-index-3 ">
+                <svg version="1.1" class="bg-white-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2560 221" enable-background="new 0 0 2560 221" xml:space="preserve">
+          <polygon points="2560,221 0,221 2560,0 "></polygon>
+        </svg>
+            </div>
+        </section>
+        <!--End countdown section-->
+        <!--Tickets section-->
+        <section id="tickets" class="pricing py-5">
+            <div class="container">
+                <div class="container spacer-double-sm">
+                    <!--Row-->
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-5 pb-5 text-center"> <span class="icon-title icon-bg-dark rounded-circle  mb-3">
+              <img class="icon-title-inner" src="{% static 'isp-home/assets/svg/ticket-icon.svg'%}" alt="">
+            </span>
+                                <h2 class="h1">Popular packages</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Free Tier -->
+                        {% for pack in packages %}
+                        <div class="col-lg-4">
+                            <div class="card mb-5 mb-lg-0">
+                                <div class="card-body">
+                                    <h6 class="card-price text-center">RS: {{ pack.price }}<span class="period">/month</span></h6>
+                                    <h3 class="text-center">{{ pack.bandwidth }}</h3>
+                                    <hr>
+                                    <ul class="fa-ul">
+                                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{{ pack.extra_information|linebreaksbr }}</li>
+
+                                    </ul>
+                                    <a href="#faq" class="btn btn-block btn-primary text-uppercase">Get Now</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+        </section>
+        <!--End tickets section-->
+        <!--Registration section-->
+        <section id="faq" class=" jarallax gradient-overlay gradient-overlay-dark">
+            <div class="curved-decoration  img-decoration img-decoration-top">
+                <svg version="1.1" class="bg-white-svg" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2560 221" enable-background="new 0 0 2560 221" xml:space="preserve">
+          <polygon points="0,0 2560,0 0,221 " />
+        </svg>
+            </div>
+            <img class="jarallax-img " src="assets/img/1.jpg" alt="">
+            <!--Container-->
+            <div class="container z-index-2 position-relative spacer-double-md">
+                <!--Row-->
+                <div class="row justify-content-lg-between align-items-lg-center">
+                    <div class="col-lg-5 mb-5 mb-lg-0"> <span class="d-block text-white text-uppercase span-style mb-2">29 to 31 July 2019</span>
+                        <h1 class="display-4  text-white mb-0">Contact US</h1>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="bg-white rounded p-6">
+                            <form method="post" action="choose_package">
+                                <div class="mb-4">
+                                    <h2 class="h4">Contact-US</h2>
+                                </div>
+                                <div class=" mb-3">
+                                    <div class=" input-group input-group form">
+                                        <input type="text" class="form-control " name="username" placeholder="Enter your username">
+                                    </div>
+                                </div>
+                                <div class=" mb-3">
+                                    <div class=" input-group input-group form">
+                                        <input type="email" class="form-control " name="email" placeholder="Enter your email address">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    {% csrf_token %}
+                                    <div class="js-focus-state input-group input-group form">
+
+                                        <select class="custom-select" name="package">
+
+                      <option selected="">Choose a Packages</option>
+
+                      <option value="budget">One day package</option>
+                      <option value="budget">All days package</option>
+                    </select>
+                                    </div>
+                                    {
+                                </div>
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-block btn-light">Get your ticket</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+            <div class="curved-decoration img-decoration img-decoration-bottom ">
+                <svg version="1.1" class="bg-secondary-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2560 221" enable-background="new 0 0 2560 221" xml:space="preserve">
+          <polygon points="2560,221 0,221 2560,0 "></polygon>
+        </svg>
+            </div>
+        </section>
+        <!--End registration section-->
+        <!--Venue section-->
+        <section id="venue" class="bg-secondary">
+            <!--Container-->
+            <div class="container spacer-double-sm">
+                <!--Row-->
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-5 pb-5 text-center"> <span class="icon-title icon-bg-dark rounded-circle mb-3">
+              <img class="icon-title-inner" src="{% static 'isp-home/assets/svg/hotel-icon.svg' %}" alt="Image Description">
+            </span>
+                            <h2 class="h1">Location</h2>
+                            <p class="w-md-60 mx-auto mb-0 lead">Accommodation and travel information below.</p>
+                        </div>
+                    </div>
+                </div>
+                <!--End row-->
+                <!--Row-->
+                <div class="row">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="row">
+                            <div class="col-sm-6 mb-4 mb-sm-0">
+                                <h2 class="h5">ASIA IT Ltd. Amravati</h2>
+                                <address class="mb-0">
+                <ul class="list-unstyled text-secondary mb-2 ">
+                  <li class="py-1">45 Gulshan South C/A, Circle-1</li>
+                </ul>
+
+                <span class="fa fa-arrow-right"></span></a>
+              </address>
+                            </div>
+                            <div class="col-sm-6">
+                                <img class="img-fluid rounded" src="assets/img/2.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 ">
+                        <div class="row">
+                            <div class="col-sm-6 mb-4 mb-sm-0">
+                                <h2 class="h5">Contact</h2>
+                                <address class="mb-0">
+                <ul class="list-unstyled text-secondary mb-2">
+                  <li class="py-1">Tel : +919000000, +9112345678
+                                   Fax : +91 009900990</li>
+                  <li class="py-1">Email :admin@foxit.com</li>
+                </ul>
+
+                <span class="fa fa-arrow-right"></span></a>
+              </address>
+                            </div>
+                            <div class="col-sm-6">
+                                <img class="img-fluid rounded" src="assets/img/5.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End row-->
+                <!--Row-->
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-5 pb-4 mt-5 pt-4">
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+                <!--End row-->
+                <!--Row-->
+
+                <!--End row-->
+            </div>
+            <!--End container-->
+            <div class="curved-decoration ">
+                <svg version="1.1" class="bg-white-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2560 221" enable-background="new 0 0 2560 221" xml:space="preserve">
+          <polygon points="2560,221 0,221 2560,0 "></polygon>
+        </svg>
+            </div>
+        </section>
+        <!--End venue section-->
+        <!--Gallery section-->
+        <section id="gallery" class="">
+            <!--Container-->
+            <div class="container spacer-double-sm position-relative">
+                <div class="svg-decoration-container ">
+                    <div class="svg-decoration middle-left z-index-2 boundary " data-jarallax-element="50 0">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 618.7321 953.8541" enable-background="new 0 0 618.7321 953.8541" xml:space="preserve">
+              <path  fill="#43C370"  d="M537.1101,778.5433
+  c51.8586-99.02,78.9947-189.8956,81.4083-272.6271c1.7134-58.731-6.8779-121.056-25.7739-186.975l0,0
+  C536.3835,122.3246,352.033-9.579,147.7484,0.5448L100,2.9109C42.4495,5.763-1.8924,54.7289,0.9596,112.2795
+  c1.0715,21.6219,8.8424,42.3749,22.2356,59.3831c89.1792,113.2492,116.0558,219.6618,80.6299,319.2379
+  c-20.3856,57.3003-45.0635,108.945-74.0337,154.9342l0,0c-56.9401,90.3902-29.8234,209.825,60.5669,266.765
+  c7.9332,4.9974,16.2192,9.4114,24.7926,13.207l0,0C272.6364,995.5298,457.2053,931.1155,537.1101,778.5433L537.1101,778.5433z" />
+            </svg>
+                    </div>
+                    <div class="svg-decoration bottom-right boundary z-index-2 " data-jarallax-element="-50 0">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 645.0645 726.0726" enable-background="new 0 0 645.0645 726.0726" xml:space="preserve">
+              <path  fill="none" stroke="#234DD4" stroke-width="35" stroke-miterlimit="10" d="
+  M173.2631,110.4345c-50.5356,54.1457-83.8452,107.4337-99.9288,159.864c-11.4178,37.2202-16.8839,78.5479-16.3984,123.9829l0,0
+  c1.4481,135.519,96.0394,252.1913,228.3301,281.6306l30.9209,6.881c37.2686,8.2935,74.204-15.1954,82.4975-52.4639
+  c3.1159-14.0019,1.7991-28.6263-3.7679-41.8464c-37.0681-88.0264-35.5347-160.7343,4.6003-218.1236
+  c23.0954-33.0243,47.9389-61.6809,74.5306-85.9698l0,0c52.2652-47.7392,55.9341-128.8087,8.1949-181.0738
+  c-4.1899-4.5871-8.7077-8.8635-13.5178-12.7954l0,0C380.3669,18.2949,251.1294,27.0056,173.2631,110.4345L173.2631,110.4345z" />
+            </svg>
+                    </div>
+                </div>
+                <!--Row-->
+                <div class="row align-items-center justify-content-between z-index-2 position-relative">
+                    <div class="col-12 col-md-6 mb-5 mb-md-0">
+                        <div class="row">
+                            <div class="col-6 mr-n mt-5">
+                                <a href="assets/img/gallery/2.jpg" class="popup-image">
+                                    <img src="assets/img/gallery/2.jpg" class="img-fluid mb-3 rounded " alt="">
+                                </a>
+                                <a href="assets/img/gallery/4.jpg" class="popup-image">
+                                    <img src="assets/img/gallery/4.jpg" class="img-fluid rounded " alt="">
+                                </a>
+                            </div>
+                            <div class="col-6 ">
+                                <a href="assets/img/gallery/1.jpg" class="popup-image">
+                                    <img src="assets/img/gallery/1.jpg" class="img-fluid mb-3 rounded " alt="">
+                                </a>
+                                <a href="assets/img/gallery/3.jpg" class="popup-image">
+                                    <img src="assets/img/gallery/3.jpg" class="img-fluid rounded " alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-5 ">
+                        <h2 class="h1">
+                            We are always Faster & Reliable
+                        </h2>
+                        <p class="lead">Fox IT has come a long way since its establishment in 1997. From small beginnings as a provider of dial-up & radio link Internet access to local businesses, we have grown consistently and organically as a communications provider
+                            serving a diverse portfolio of business class voice and data services.</p>
+
+                        </a>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+            <div class="curved-decoration ">
+                <svg version="1.1" class="bg-secondary-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2560 221" enable-background="new 0 0 2560 221" xml:space="preserve">
+          <polygon points="2560,221 0,221 2560,0 "></polygon>
+        </svg>
+            </div>
+        </section>
+        <!--End gallery section-->
+        <!--Faq section-->
+
+        <!--End faq section-->
+        <!--Newsletter section-->
+        <section class="bg-primary-3 newsletter">
+            <!--Container-->
+            <div class="container z-index-2 position-relative ">
+                <!--Row-->
+                <div class="row justify-content-center align-items-lg-center">
+                    <div class="col-lg-10">
+                        <div class="bg-white shadow-lg rounded p-lg position-relative mt-n text-center o-hidden">
+                            <div class="bg-decoration-container">
+                                <div class="bg-decoration" data-jarallax-element="150 0">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 749.2 848.7" enable-background="new 0 0 749.2 848.7;" xml:space="preserve">
+                    <path fill="#F5F8FB" d="M184.3,0.4C93.2,6.1,16.9,72,7.8,162.8C-4.8,287.3-8.4,460.4,46.3,573.6c30.8,63.7,83.4,124.3,140.1,176.9
+  C327,880.8,537.4,873,702.9,776.3l0,0c71.4-41.7,56-159.5-17.3-197.7c-91.8-47.8-180.8-119.3-194.7-219.9c-1.2-9-2.3-17.8-3.2-26.6
+  C472.3,174,343-9.5,184.3,0.4L184.3,0.4z" />
+                  </svg>
+                                </div>
+                            </div>
+                            <div class="z-index-2 position-relative">
+                                <h2 class="mb-5 h1">Subsribe now to get latest offers</h2>
+                                <form>
+                                    <div class="form-row">
+                                        <div class="col-sm-8 ">
+                                            <div class=" input-group form mb-3 mb-lg-0">
+                                                <input class="form-control" name="email" placeholder="Email" type="email">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 mb-lg-0 mb-2">
+                                            <button type="submit" class="btn btn-block btn-primary">Subscribe</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End conatiner-->
+        </section>
+        <!--End newsletter section-->
+        <!--Footer-->
+        <footer class="bg-primary-3">
+            <!--Container-->
+            <div class="container spacer-double-md">
+                <!--Row-->
+                <div class="row mb-5">
+                    <div class="col-md-4 mb-5 mb-md-0">
+                        <div class="media">
+                            <img class="max-width-sm  mr-3" src="assets/svg/contact-icon.svg" alt="">
+                            <div class="media-body">
+                                <h4 class="text-white h6 mb-0">Call us</h4>
+                                <span class="d-block text-light font-size-15">+9191234567 </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5 mb-md-0">
+                        <div class="media">
+                            <img class="max-width-sm  mr-3" src="assets/svg/email-icon.svg" alt="">
+                            <div class="media-body">
+                                <h4 class="text-white h6 mb-0">Email us</h4>
+                                <span class="d-block text-light font-size-15">support@foxeconf.net</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5 mb-md-0">
+                        <div class="media">
+                            <img class="max-width-sm  mr-3" src="assets/svg/location-icon.svg" alt="">
+                            <div class="media-body">
+                                <h4 class="text-white h6 mb-0">Address</h4>
+                                <span class="d-block text-light font-size-15">Amravati, Maharashtra </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End row-->
+                <!--Row-->
+                <div class="row justify-content-center ">
+                    <div class="col-auto">
+                        <ul class="list-inline mb-2 mt-3">
+                            <li class="list-inline-item "><a class="social-icon" href="#"><span class="fab fa-facebook-f"></span></a>
+                            </li>
+                            <li class="list-inline-item "><a class="social-icon " href="#"><span class="fab fa-google"></span></a>
+                            </li>
+                            <li class="list-inline-item "><a class="social-icon " href="#"><span class="fab fa-twitter"></span></a>
+                            </li>
+                            <li class="list-inline-item"><a class="social-icon " href="#"><span class="fab fa-instagram"></span></a>
+                            </li>
+                            <li class="list-inline-item "><a class="social-icon " href="#"><span class="fab fa-twitter"></span></a>
+                            </li>
+                            <li class="list-inline-item"><a class="social-icon " href="#"><span class="fab fa-instagram"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--End row-->
+                <!--Row-->
+                <div class="row justify-content-center ">
+                    <div class="col-auto">
+                        <p class="font-size-14 text-muted text-center mb-5">&copy; 2021 all rights reserved - ASIA Ltd.
+                            <br>A product of <a class="text-light" href="">ASIA Ltd</a>.</p>
+                    </div>
+                </div>
+                <!--End row-->
+                <!--Row-->
+                <div class="row justify-content-center ">
+                    <div class="col-auto">
+                        <p class="font-size-12  text-center mb-0 "> made by <a class="text-light" href="" title="Freepik">--</a> from <a class="text-light" href="" title="Flaticon">ASIA Ltd</a>
+                            <br>is licensed by <a class="text-light" href="" title="Creative Commons BY 3.0" target="_blank">cc 3.0</a>
+                        </p>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End containers-->
+        </footer>
+        <!--End footer section-->
+        <!--To the top--><a class="scroll-to-top scroll rounded-circle" href="#wrapper"><span class=" fas fa-arrow-up top-icon "></span></a>
+        <!-- End to the top -->
+        </div>
+        <!-- End wrapper-->
+        <!--Javascript-->
+        <script src="{% static 'isp-home/js/jquery-1.12.4.min.js' %}"></script>
+        <script src="{% static 'isp-home/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'isp-home/js/smooth-scroll.js' %}"></script>
+        <script src="{% static 'isp-home/js/jquery.countdown.min.js' %}"></script>
+        <script src="{% static 'isp-home/js/jquery.magnific-popup.min.js' %}"></script>
+        <script src="{% static 'isp-home/js/placeholders.min.js' %}"></script>
+        <script src="{% static 'isp-home/js/jarallax.min.js' %}"></script>
+        <script src="{% static 'isp-home/js/jarallax-element.min.js' %}"></script>
+        <script src="{% static 'isp-home/js/script.js' %}"></script>
+        <!-- Google analytics -->
+        <!-- End google analytics -->
+</body>
+
+</html>
